@@ -1,5 +1,4 @@
 import time
-
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
@@ -17,16 +16,7 @@ driver.find_element_by_xpath('/html/body/div[2]/div/div/section/div/div/div/div[
 driver.implicitly_wait(time_to_wait=5)
 
 # driver.find_element_by_xpath('**').send_keys('ID/PW')로 입력 ----개인정보 보호!!
-driver.find_element_by_xpath('//*[@id="one_id"]').send_keys('ID 작성')
-driver.find_element_by_xpath('//*[@id="password"]').send_keys('PW 작성')
 
-# 오류난 코드들
-# id = driver.find_element_by_xpath('//*[@id="one_id"]')
-# id.click()
-# id.send_keys('ID') #아이디 적기
-# pw = driver.find_element_by_xpath('//*[@id="password"]')
-# pw.click()
-# pw.send_keys('PW') # 비밀번호 적기
 
 action.key_down(Keys.ENTER).perform()
 action.key_up(Keys.ENTER).perform()
@@ -38,38 +28,44 @@ driver.implicitly_wait(time_to_wait=10)
 
 # 마우스 좌표값을 출력해 pg로 클릭하기
 # print(pg.position())
-time.sleep(3)
-pg.moveTo(pg.position(182, 445))
-pg.click(pg.position(182, 445))
+# time.sleep(3)
+# pg.moveTo(pg.position(182, 445))
+# pg.click(pg.position(182, 445))
 
-i = 1
 iframes = driver.find_element_by_tag_name('iframe')
 driver.switch_to.frame(iframes)
+driver.find_element_by_xpath('//*[@id="paletteItem:_3917138_1"]/a/span').click()
+driver.switch_to.default_content() #원래 있던 전체 웹 페이지로 나오기
 
-
-# driver.find_element_by_xpath('//*[@id="paletteItem:_3917138_1"]/a/span').click()
-driver.find_element_by_link_text('온라인강의_'+str(i)).click()
+i = 3
 driver.implicitly_wait(time_to_wait=10)
-# driver.find_element_by_link_text('XIN - 컴넷_온라인_1 / 2021-09-02 00:00 ~ 2021-09-03 23:59').click()
+driver.switch_to.frame(iframes)
+driver.find_element_by_link_text('온라인강의_'+i.__str__()).click()
+driver.switch_to.default_content() #원래 있던 전체 웹 페이지로 나오기
 
-iframes = driver.find_element_by_tag_name('iframe')
+driver.implicitly_wait(time_to_wait=10)
 driver.switch_to.frame(iframes)
 driver.find_element_by_xpath('//*[@id="anonymous_element_7"]/a/span').click()
+driver.switch_to.default_content() #원래 있던 전체 웹 페이지로 나오기
+
+# iframe 접근이 다른 것 같은데 오류가 난다.
+# driver.implicitly_wait(time_to_wait=10)
+# video_iframe = driver.find_elements_by_tag_name('share_iframe')
+# driver.switch_to.frame(video_iframe)
+# driver.find_element_by_xpath('//*[@id="front-screen"]/div/div[2]/div[1]/div').click()
+# driver.switch_to.default_content() #원래 있던 전체 웹 페이지로 나오기
+
+# 일시적으로 좌표값으로 클릭 추후에 xpath값으로 접근하도록 수정
+driver.implicitly_wait(time_to_wait=10)
+time.sleep(3)
+pg.moveTo(pg.position(959, 581))
+pg.click(pg.position(959, 581))
 
 
-
-# 오류
-# iframes = driver.find_element_by_tag_name('iframe')
-# driver.switch_to.frame(iframes)
-# driver.find_element_by_xpath('//*[@id="paletteItem:_3917138_1"]/a/span').click()
-#
-#
-# driver.find_element_by_xpath('//*[@id="anonymous_element_7"]/a/span').click()
-# #
-# # //*[@id="anonymous_element_7"]/a/span
-# # //*[@id="anonymous_element_9"]/a/span
-
-
+# 녹화시작 버튼 누르기
+# 강의 시간만큼 대기하기
+# 녹화종료 버튼 누르기
+# driver.close()
 
 # 제대로 되었는지 확인 후 3초 뒤 창 끄기
 # time.sleep(3)
